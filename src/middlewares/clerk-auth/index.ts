@@ -1,7 +1,8 @@
+
 import { verifyToken } from '@clerk/clerk-sdk-node';
 import { Context } from 'koa';
 
-export default (config: any, { strapi }: { strapi: any }) => {
+const clerkAuthMiddleware = (config: any, { strapi }: { strapi: any }) => {
   return async (ctx: Context, next: () => Promise<any>) => {
     const authHeader = ctx.request.headers.authorization;
 
@@ -13,7 +14,7 @@ export default (config: any, { strapi }: { strapi: any }) => {
     const token = authHeader.split(' ')[1];
 
     try {
-      const payload = await verifyToken(token, {
+       const payload = await verifyToken(token, {
   audience: 'https://huge-owl-18.clerk.accounts.dev',
   issuer: 'https://huge-owl-18.clerk.accounts.dev/.well-known/jwks.json',
 });
@@ -26,3 +27,5 @@ export default (config: any, { strapi }: { strapi: any }) => {
     }
   };
 };
+
+export default clerkAuthMiddleware;
