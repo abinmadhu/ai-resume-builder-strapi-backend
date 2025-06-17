@@ -9,4 +9,8 @@ export default [
   'strapi::session',
   'strapi::favicon',
   'strapi::public',
+  {
+    name: 'global::clerk-auth',
+    config: {},
+  },
 ];
